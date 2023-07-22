@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'ru.fileCreator'
@@ -8,12 +9,23 @@ version = '1.0-SNAPSHOT'
 java {
     sourceCompatibility = '17'
 }
+
+application {
+    mainClass = 'ru.fileCreator.FileCreator'
+}
+
 jar {
     manifest {
         attributes(
                 'Main-Class': 'ru.fileCreator.FileCreator'
         )
     }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = 'exclude'
+    archiveFileName = "myJar.jar"
+    destinationDirectory = file("jarFile")
 }
 
 configurations {
@@ -26,14 +38,13 @@ repositories {
     mavenCentral()
 }
 
-//application {
-//    mainClass = 'ru.fileCreator.FileCreator'
-//}
+
 
 
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     implementation 'com.konghq:unirest-java:3.14.5'
