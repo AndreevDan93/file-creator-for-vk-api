@@ -14,8 +14,6 @@ public class Config {
 
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             InputStream input = classLoader.getResourceAsStream(RELATIVE_PATH_TO_PROPERTIES);
-//            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-//            InputStream input = classLoader.getResourceAsStream("");
             try {
                 properties = new Properties();
                 properties.load(input);
